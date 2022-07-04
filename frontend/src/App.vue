@@ -34,10 +34,10 @@ export default {
     async initialize() {
       await axios.get('https://www.blockchain.com/ru/ticker').then((el) => {
         let data = el.data
-        this.currRub = data['RUB'].last / data['USD'].last
-        this.$store.commit("SET_BTC", data['USD'].last);
+        this.currRub = data['RUB'].last / data['USD'].last      // примерно 55 рублей
+        this.$store.commit("SET_BTC", data['USD'].last);     // текущий курс доллара к битку в стор
       })
-      this.$store.commit("SET_CURRUB", +this.currRub.toFixed(2));
+      this.$store.commit("SET_CURRUB", +this.currRub.toFixed(2));  // курс рубля к доллару в стор
     },
   },
 };

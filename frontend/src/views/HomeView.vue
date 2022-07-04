@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld />
+  <MainPage />
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld'
+import MainPage from '../components/MainPage'
 
 export default {
 
   components: {
-    HelloWorld,
+    MainPage,
   },
 }
 </script>

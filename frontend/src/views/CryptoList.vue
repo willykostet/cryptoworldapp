@@ -8,7 +8,7 @@
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
           </v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" hide-default-footer align-center :items="coinList" :search="search">
+        <v-data-table :headers="headers" hide-default-footer :items-per-page="50" align-center :items="coinList" :search="search">
           <template v-slot:[`item.id`]="{ item }">
             {{ item.id + 1 }}
           </template>
@@ -31,7 +31,7 @@
           </template>
           <template v-slot:[`item.rub`]="{ item }">
             <v-chip class="ma-2" color="orange" text-color="white">
-              {{ shoter(item.rub + (item.usd * $store.getters.GET_CURRUB)) }}
+              {{ shoter(item.rub) }}
               <v-icon right small>
                 mdi-currency-rub
               </v-icon>
@@ -63,9 +63,12 @@ export default {
           sortable: true,
           value: 'id',
         },
-        { text: 'Coin', value: 'coin' },
-        { text: 'USD', value: 'usd' },
-        { text: 'Rub', value: 'rub' },
+        { text: 'Coin', value: 'coin', 
+          sortable: true, },
+        { text: 'USD', value: 'usd', 
+          sortable: true, },
+        { text: 'Rub', value: 'rub', 
+          sortable: true, },
       ],
       coinList: [
 
@@ -103,6 +106,7 @@ export default {
           name: 'litecoin',
           img: 'litecoin.webp'
         },
+       
       ],
     }
   },
@@ -120,10 +124,12 @@ export default {
           usd: 0,
           rub: 0,
         }
+        
         axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${element.name}&vs_currencies=usd`).then((el) => {
           let obj = Object.keys(el.data)
           data.coin = obj[0]
           data.usd = el.data[obj[0]].usd
+          data.rub = data.usd * this.$store.getters.GET_CURRUB
         })
         this.coinList.push(data)
       });
@@ -133,7 +139,7 @@ export default {
       return require(`@/assets/${url}`)
     },
     shoter(str) {
-      let st = str.toFixed(2);
+      let st = str.toFixed(5);
       return st
     }
   },

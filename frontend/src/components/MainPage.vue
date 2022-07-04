@@ -8,9 +8,9 @@
 
         <v-img class="white--text align-end" height="200px"
           src="https://cdn.vox-cdn.com/thumbor/8KxJUDwQsz5Qy-_HzZjtCTRR5PU=/0x164:1440x884/fit-in/1200x600/cdn.vox-cdn.com/uploads/chorus_asset/file/22310830/NmJgg.jpg">
-          <v-card-title>2 btc in usd</v-card-title>
+          <v-card-title>BTC TO USD</v-card-title>
         </v-img>
-        <v-card-title>Please enter</v-card-title>
+        <v-card-title>Please enter BTC</v-card-title>
 
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -28,7 +28,7 @@
 
         <v-card-title>Итого</v-card-title>
 
-        <div class="couterSum">{{ total.toFixed(2) || 0 }} $</div>
+        <div class="couterSum">{{ total.toFixed(5) || 0 }} $</div>
 
 
       </v-card>
@@ -56,7 +56,7 @@ export default {
     valid: true,
     get_number: [
       (v) => !!v || "Обязательно поле!",
-      (v) => /^\d+$/.test(v) || "Только цифры!",
+      (v) => /(\d+(?:\.\d+)?)/.test(v) || "Только цифры!",
     ],
   }),
 
